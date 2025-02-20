@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
+    //Smoothly follows behind the player without directly sticking to their position
+    //Gets sent the room information and adjusts to it, not moving beyond walls and zooming for smaller spaces 
     private GameObject manager;
     private Vector3 offset = new Vector3(0, 0, -10);
     private float smoothTime = 0.25f;
