@@ -15,4 +15,5 @@ public class Room : ScriptableObject
     //Should or shouldn't be spawned
     public float[] bounds;
     //Up, Down, Right, Left camera bounds
+    //Bounds are Ceiling y - 5.5, Floor y + 5.5, RightWall x - 9.5, LeftWall x + 9.5
 }

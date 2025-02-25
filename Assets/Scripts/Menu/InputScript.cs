@@ -8,6 +8,9 @@ using System.Linq;
 
 public class InputScript : MonoBehaviour
 {
+    //Code is on all buttons in the keybind/input menu, when button is pressed, detects next input and sets that Key to that input. 
+
+
     private static readonly KeyCode[] keyCodes = Enum.GetValues(typeof(KeyCode))
                                                  .Cast<KeyCode>()
                                                  .Where(k => ((int)k < (int)KeyCode.Mouse0))

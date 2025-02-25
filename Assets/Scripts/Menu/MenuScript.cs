@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+    //Main menuing buttons 
+
     public GameObject[] objs;
-    // Start is called before the first frame update
+
+    //Establishes buttons
     void Start()
     {
         objs[0].GetComponent<Button>().onClick.AddListener(Begin);
@@ -21,7 +23,6 @@ public class MenuScript : MonoBehaviour
         objs[10].GetComponent<Button>().onClick.AddListener(SetDef);
     }
 
-    // Update is called once per frame
     void Begin()
     {
         SceneManager.LoadScene(1);

@@ -14,7 +14,6 @@ public class PlayerMove : MonoBehaviour
     public LayerMask playerLayerMask;
     private GameObject manager;
     public bool grounded = false;
-    public Mesh[] meshes;
 
     //Set Keys
     public KeyCode[] keys = {KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space, KeyCode.LeftShift};
@@ -43,7 +42,7 @@ public class PlayerMove : MonoBehaviour
             GetComponent<CapsuleCollider>().height = 2;
         }
 
-        //Horizontal
+        //Horizontal using whatever two keybinds are for left and right
         if (Input.GetKey(keys[1]) && Input.GetKey(keys[3])) { horz = 0; }
         else if (Input.GetKey(keys[1])) { horz = -1; }
         else if (Input.GetKey(keys[3])) { horz = 1; }
@@ -56,6 +55,8 @@ public class PlayerMove : MonoBehaviour
             rb.velocity = new Vector3(horz * speed, rb.velocity.y, rb.velocity.z);
             Debug.Log(horz);
         }
+
+        //Grounding
         Ray myRay = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
         if (Physics.Raycast(myRay, out hit, GetComponent<CapsuleCollider>().height/2 + .1f, playerLayerMask))
@@ -65,7 +66,8 @@ public class PlayerMove : MonoBehaviour
             //-5 is an arbitrary number that keeps them grounded while moving down slopes without risking clipping
             if (rb.velocity.y <= 0) { grounded = true; }
         }
-        //else { grounded = false; }
+
+        //If player can jump determined by if player is grounded and can be held for lengthened jumps
         if (Input.GetKeyDown(keys[4]) && grounded) { rb.velocity = new Vector3(rb.velocity.x, jumpStr, rb.velocity.z); grounded = false; }
         if (Input.GetKeyUp(keys[4]) && rb.velocity.y > 0f ) { rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * .5f , rb.velocity.z); }
     }
