@@ -12,11 +12,14 @@ public class PlayerDoor : MonoBehaviour
     private float goal = 0;
     //Direction is either -1 or 1
     private int direction = 0;
+    private float timer = 0;
+    private int room = 0;
 
     void Start()
     {
         //Allows PlayerDoor to set currentRoom from MainManager
         manager = GameObject.Find("MainManager");
+        this.gameObject.transform.GetChild(1).GetComponent<Animator>().enabled = false;
     }
 
     void Update()
@@ -33,8 +36,14 @@ public class PlayerDoor : MonoBehaviour
         //Happens when player is moving through door
         if (moving)
         {
+            timer += Time.deltaTime;
+            if (timer > 1f)
+            {
+                manager.GetComponent<MainManager>().setRoom(room);
+            }
+
             //Moves through door with velocity of 5
-            float temp = 5 * direction;
+            float temp = 3 * direction;
             rb.velocity = new Vector3(temp, -5f, 0);
 
             //If player is past goal x, disables moving
@@ -43,7 +52,9 @@ public class PlayerDoor : MonoBehaviour
         }
         //Player can move whenever not moving through door
         else 
-        { 
+        {
+            this.gameObject.transform.GetChild(1).GetComponent<Animator>().enabled = false;
+            timer = 0;
             GetComponent<PlayerMove>().enabled = true;
         }
     }
@@ -53,12 +64,14 @@ public class PlayerDoor : MonoBehaviour
     {
         //Disables player controls during door "cutscene"
         GetComponent<PlayerMove>().enabled = false;
-        manager.GetComponent<MainManager>().setRoom(num);
+        room = num;
         if (dir) { direction = 1; }
         else { direction = -1; }
 
         //Establishes goal pos as three in front of player
-        goal = pos + (3 * direction);
+        goal = pos + (5 * direction);
         moving = true;
+        this.gameObject.transform.GetChild(1).GetComponent<Animator>().enabled = true;
+        this.gameObject.transform.GetChild(1).GetComponent<Animator>().Play("Fade");
     }
 }

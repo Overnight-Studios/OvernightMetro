@@ -16,6 +16,7 @@ public class Door : MonoBehaviour
         {
             if (other.gameObject.GetComponent<PlayerMove>().enabled == true)
             {
+                GameObject.Find("Canvas").GetComponent<Animator>().Play("Fade");
                 other.gameObject.GetComponent<PlayerDoor>().Door(toRoom, transform.position.x, dir);
             }
         }

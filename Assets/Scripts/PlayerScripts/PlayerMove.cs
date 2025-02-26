@@ -61,10 +61,12 @@ public class PlayerMove : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(myRay, out hit, GetComponent<CapsuleCollider>().height/2 + .1f, playerLayerMask))
         {
-            //transform.position = hit.point + new Vector3(0, GetComponent<CapsuleCollider>().height / 2 + .1f, 0);
             if (grounded) { rb.velocity = new Vector3(rb.velocity.x, -5, rb.velocity.z); }
             //-5 is an arbitrary number that keeps them grounded while moving down slopes without risking clipping
             if (rb.velocity.y <= 0) { grounded = true; }
+
+            //Pitfall
+            if (hit.transform.CompareTag("Pitfall")) { Destroy(hit.transform.gameObject); grounded = false; }
         }
 
         //If player can jump determined by if player is grounded and can be held for lengthened jumps
