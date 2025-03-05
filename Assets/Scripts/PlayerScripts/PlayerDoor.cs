@@ -19,7 +19,7 @@ public class PlayerDoor : MonoBehaviour
     {
         //Allows PlayerDoor to set currentRoom from MainManager
         manager = GameObject.Find("MainManager");
-        this.gameObject.transform.GetChild(1).GetComponent<Animator>().enabled = false;
+        this.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
     }
 
     void Update()
@@ -53,7 +53,7 @@ public class PlayerDoor : MonoBehaviour
         //Player can move whenever not moving through door
         else 
         {
-            this.gameObject.transform.GetChild(1).GetComponent<Animator>().enabled = false;
+            this.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = false;
             timer = 0;
             GetComponent<PlayerMove>().enabled = true;
         }
@@ -71,7 +71,7 @@ public class PlayerDoor : MonoBehaviour
         //Establishes goal pos as three in front of player
         goal = pos + (5 * direction);
         moving = true;
-        this.gameObject.transform.GetChild(1).GetComponent<Animator>().enabled = true;
-        this.gameObject.transform.GetChild(1).GetComponent<Animator>().Play("Fade");
+        this.gameObject.transform.GetChild(0).GetComponent<Animator>().enabled = true;
+        this.gameObject.transform.GetChild(0).GetComponent<Animator>().Play("Fade");
     }
 }

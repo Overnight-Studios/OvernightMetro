@@ -32,7 +32,7 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetKeyDown(keys[5])) { sneak = !sneak; }
         if (sneak) { 
             speed = 2.5f; 
-            transform.localScale = new Vector3(1, .5f, 1); 
+            transform.localScale = new Vector3(1, .5f, 1);
             GetComponent<CapsuleCollider>().height = 1; 
         } 
         else 
