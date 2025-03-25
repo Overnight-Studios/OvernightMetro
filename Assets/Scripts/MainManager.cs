@@ -15,8 +15,8 @@ public class MainManager : MonoBehaviour
     public int currentRoom = 0;
 
     //Establish default keybinds
-    public KeyCode[] keys = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space, KeyCode.LeftShift };
-    public KeyCode[] tempKeys = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space, KeyCode.LeftShift };
+    public KeyCode[] keys = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space, KeyCode.LeftShift};
+    public KeyCode[] tempKeys = { KeyCode.W, KeyCode.A, KeyCode.S, KeyCode.D, KeyCode.Space, KeyCode.LeftShift,  };
 
     //Does not destroy between scenes but will destroy itself if there's another copy of itself in the space
     private void Awake()

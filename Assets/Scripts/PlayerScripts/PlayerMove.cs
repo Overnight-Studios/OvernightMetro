@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -72,5 +74,9 @@ public class PlayerMove : MonoBehaviour
         //If player can jump determined by if player is grounded and can be held for lengthened jumps
         if (Input.GetKeyDown(keys[4]) && grounded) { rb.velocity = new Vector3(rb.velocity.x, jumpStr, rb.velocity.z); grounded = false; }
         if (Input.GetKeyUp(keys[4]) && rb.velocity.y > 0f ) { rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * .5f , rb.velocity.z); }
+
+        Vector2 lookPos = GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position + new Vector3(0, .45f, 0)) - Input.mousePosition;
+        Quaternion rota = Quaternion.LookRotation(lookPos);
+        transform.GetChild(2).transform.rotation = rota;
     }
 }
