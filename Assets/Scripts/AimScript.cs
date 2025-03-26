@@ -16,7 +16,11 @@ public class AimScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Ray myRay = new Ray(transform.position + new Vector3(0, 0.45f, 0), -(GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position + new Vector3(0, .45f, 0)) - Input.mousePosition));
+        GameObject player = GameObject.Find("AimPos");
+
+        this.transform.position = player.transform.position;
+
+        Ray myRay = new Ray(transform.position, -(GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position) - Input.mousePosition));
         RaycastHit hit;
         if (Physics.Raycast(myRay, out hit, 50, playerLayerMask))
         {

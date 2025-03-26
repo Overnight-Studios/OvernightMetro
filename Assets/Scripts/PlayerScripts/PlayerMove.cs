@@ -61,7 +61,7 @@ public class PlayerMove : MonoBehaviour
         //Grounding
         Ray myRay = new Ray(transform.position, Vector3.down);
         RaycastHit hit;
-        if (Physics.Raycast(myRay, out hit, GetComponent<CapsuleCollider>().height/2 + .1f, playerLayerMask))
+        if (Physics.Raycast(myRay, out hit, GetComponent<CapsuleCollider>().height/2 + .2f, playerLayerMask))
         {
             if (grounded) { rb.velocity = new Vector3(rb.velocity.x, -5, rb.velocity.z); }
             //-5 is an arbitrary number that keeps them grounded while moving down slopes without risking clipping
@@ -70,13 +70,16 @@ public class PlayerMove : MonoBehaviour
             //Pitfall
             if (hit.transform.CompareTag("Pitfall")) { Destroy(hit.transform.gameObject); grounded = false; }
         }
+        else { grounded = false; }
 
         //If player can jump determined by if player is grounded and can be held for lengthened jumps
         if (Input.GetKeyDown(keys[4]) && grounded) { rb.velocity = new Vector3(rb.velocity.x, jumpStr, rb.velocity.z); grounded = false; }
         if (Input.GetKeyUp(keys[4]) && rb.velocity.y > 0f ) { rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y * .5f , rb.velocity.z); }
 
-        Vector2 lookPos = GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position + new Vector3(0, .45f, 0)) - Input.mousePosition;
+        //Rotates AimRotate
+        Vector2 lookPos = GameObject.Find("Main Camera").GetComponent<Camera>().WorldToScreenPoint(transform.position + new Vector3(0, (0.45f * transform.localScale.y), 0)) - Input.mousePosition;
         Quaternion rota = Quaternion.LookRotation(lookPos);
-        transform.GetChild(2).transform.rotation = rota;
+        GameObject.Find("AimRotate").transform.rotation = rota;
+        GameObject.Find("AimRotate").transform.position = transform.GetChild(2).position;
     }
 }
