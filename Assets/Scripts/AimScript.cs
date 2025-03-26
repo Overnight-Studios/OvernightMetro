@@ -8,6 +8,7 @@ public class AimScript : MonoBehaviour
     // Start is called before the first frame update
     public LayerMask playerLayerMask;
     public float tick = 0;
+    public float atkTime = 0;
     void Start()
     {
         
@@ -16,6 +17,7 @@ public class AimScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        atkTime += Time.deltaTime;
         GameObject player = GameObject.Find("AimPos");
 
         this.transform.position = player.transform.position;
@@ -38,5 +40,18 @@ public class AimScript : MonoBehaviour
             transform.GetChild(0).gameObject.SetActive(false);
             tick = 0;
         }
+        if (Input.GetMouseButton(0) && atkTime > 1)
+        {
+            if (tick >= 1 && Input.GetMouseButton(1))
+            {
+                Debug.Log("Shoot");
+            }
+            else
+            {
+                transform.GetChild(1).gameObject.SetActive(true);
+            }
+            atkTime = 0;
+        }
+        if (atkTime > .5f && transform.GetChild(1).gameObject.activeSelf) { transform.GetChild(1).gameObject.SetActive(false); }
     }
 }
